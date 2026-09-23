@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #7DCFFF;
+  --color-secondary: #1A1B26;
+}
+
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
