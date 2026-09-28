@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
+
+.jetbrains-mono {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 100 800;
+  font-style: normal;
+}
+
 @theme {
-  --color-primary: #7DCFFF;
-  --color-secondary: #1A1B26;
+  --color-primary: #7dcfff;
+  --color-secondary: #1a1b26;
+  --color-tertiary: #7AA2F7;
 }
 
 @utility flex-center {
