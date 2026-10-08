@@ -1,6 +1,6 @@
 import Timer from "./Timer";
 
-function App() {
+export default function App() {
   return (
     <Timer>
       <div className="flex-center w-full justify-between">
@@ -17,5 +17,3 @@ function App() {
     </Timer>
   );
 }
-
-export default App;

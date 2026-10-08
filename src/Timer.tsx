@@ -3,14 +3,30 @@ import { createContext, useContext, useState } from "react";
 const TimerContext = createContext();
 
 export default function Timer({ children }) {
+  const [isRunning, setIsRunning] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(1500);
   const [currentLap, setCurrentLap] = useState(1);
   const [totalLaps, setTotalLaps] = useState(4);
-  const [timer, setTimer] = useState();
-  const [mode, setMode] = useState();
+  const [timer, setTimer] = useState(0);
+  const [mode, setMode] = useState(0);
+
+  const timerButtonHandler = () => {
+    setIsRunning((cur) => (cur ? false : true));
+  };
 
   return (
-    <TimerContext.Provider value={{ currentLap, totalLaps, timer, mode }}>
-      <div className="flex-center text-primary flex-col gap-2 uppercase">
+    <TimerContext.Provider
+      value={{
+        currentLap,
+        totalLaps,
+        timer,
+        mode,
+        isRunning,
+        timerButtonHandler,
+        timeRemaining,
+      }}
+    >
+      <div className="flex-center text-primary border-primary flex-col gap-2 border p-8 uppercase">
         {children}
       </div>
     </TimerContext.Provider>
@@ -19,6 +35,7 @@ export default function Timer({ children }) {
 
 function Lap() {
   const { currentLap, totalLaps } = useContext(TimerContext);
+
   return (
     <span className="text-xs">
       {currentLap}/{totalLaps}
@@ -27,7 +44,13 @@ function Lap() {
 }
 
 function Time() {
-  return <time className="text-6xl">15:00</time>;
+  const { timeRemaining } = useContext(TimerContext);
+  const minutes = Math.floor(timeRemaining / 60)
+    .toString()
+    .padStart(2, "0");
+  const seconds = (timeRemaining % 60).toString().padStart(2, "0");
+
+  return <time className="text-6xl">{minutes + ":" + seconds}</time>;
 }
 
 function Options() {
@@ -39,9 +62,14 @@ function Options() {
 }
 
 function Button() {
+  const { timerButtonHandler, isRunning } = useContext(TimerContext);
+
   return (
-    <button className="text-tertiary hover:text-primary cursor-pointer text-xs uppercase transition-all hover:tracking-wider">
-      Start
+    <button
+      className="text-tertiary hover:text-primary cursor-pointer text-xs uppercase transition-all hover:tracking-wider"
+      onClick={timerButtonHandler}
+    >
+      {isRunning ? "stop" : "start"}
     </button>
   );
 }
