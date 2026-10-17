@@ -7,11 +7,10 @@ export default function Timer({ children }) {
   const [timeRemaining, setTimeRemaining] = useState(1500);
   const [currentLap, setCurrentLap] = useState(1);
   const [totalLaps, setTotalLaps] = useState(4);
-  const [timer, setTimer] = useState(0);
   const [mode, setMode] = useState(0);
 
   const timerButtonHandler = () => {
-    setIsRunning((cur) => (cur ? false : true));
+    setIsRunning((cur) => !cur);
   };
 
   return (
@@ -19,7 +18,6 @@ export default function Timer({ children }) {
       value={{
         currentLap,
         totalLaps,
-        timer,
         mode,
         isRunning,
         timerButtonHandler,
